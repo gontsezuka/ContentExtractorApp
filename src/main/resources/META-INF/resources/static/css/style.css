@@ -1,0 +1,52 @@
+.invisible-at-first {
+	display: none;
+}
+
+
+
+#tasksDiv {
+	padding-top: 30px;
+}
+
+#docDiv {
+	padding-top: 30px;
+	margin-top: 20px;
+}
+
+#profileDiv {
+	padding-top: 30px;
+}
+
+
+#output{
+	
+	margin-left:50px;
+	margin-right:50px;
+	padding-top:50px;
+	overflow-y: scroll;
+	height:300px;
+}
+#divUpdate{
+	margin-left: 100;
+	margin-right: 100px;
+	margin-top: 50px;
+	padding-left: 20px;
+	padding-top: 20px;
+}
+
+#usernameUpdateLabel {
+margin-left: 0;
+
+}
+
+#passwordUpdateLabel{
+	margin-left: 0;
+}
+
+#previewDiv{
+
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+}

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.zukalover</groupId>
+	<artifactId>LoginRegistration14JAN-part</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>LoginRegistration14JAN-part</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+			
+		  <wildfly-home>/home/gontse/Downloads/wildfly-11.0.0.Final</wildfly-home>
+    <wildfly-hostname>127.0.0.1</wildfly-hostname>
+    <wildfly-port>9990</wildfly-port>
+    <wildfly-username>zukalover</wildfly-username>
+    <wildfly-password>Gg_gontse1!</wildfly-password>
+
+		
+	</properties>
+
+	<dependencies>
+		<dependency>
+    <groupId>org.sonarsource.scanner.maven</groupId>
+    <artifactId>sonar-maven-plugin</artifactId>
+    <version>3.2</version>
+</dependency>
+			<dependency>
+		    <groupId>org.apache.pdfbox</groupId>
+		    <artifactId>pdfbox-tools</artifactId>
+		    <version>2.0.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.sf.cssbox</groupId>
+		    <artifactId>pdf2dom</artifactId>
+		    <version>1.6</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itextpdf</artifactId>
+		    <version>5.5.10</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.itextpdf.tool</groupId>
+		    <artifactId>xmlworker</artifactId>
+		    <version>5.5.10</version>
+		</dependency>
+		<dependency>
+	    <groupId>org.apache.chemistry.opencmis</groupId>
+	    <artifactId>chemistry-opencmis-client-impl</artifactId>
+	    <version>1.1.0</version>
+	</dependency>
+  	
+  	
+  	<dependency>
+	    <groupId>org.apache.chemistry.opencmis</groupId>
+	    <artifactId>chemistry-opencmis-commons-api</artifactId>
+	    <version>1.1.0</version>
+	</dependency>
+  	
+  	<dependency>
+	    <groupId>org.apache.chemistry.opencmis</groupId>
+	    <artifactId>chemistry-opencmis-commons-impl</artifactId>
+	    <version>1.1.0</version>
+	</dependency>
+  	
+  	<dependency>
+	    <groupId>org.apache.chemistry.opencmis</groupId>
+	    <artifactId>chemistry-opencmis-client-api</artifactId>
+	    <version>1.1.0</version>
+	</dependency>
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>jsp-api</artifactId>
+		    <version>2.2</version><!-- added -->
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.tomcat.embed</groupId>
+		    <artifactId>tomcat-embed-jasper</artifactId>
+		   	<scope>provided</scope><!-- ADDED-->
+		</dependency>
+		
+		
+		<dependency>
+	    <groupId>jstl</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>
+		
+	</dependencies>
+<profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Optional URL to server. Default value is http://localhost:9000 -->
+                <sonar.host.url>
+                  http://localhost:9000
+                </sonar.host.url>
+            </properties>
+        </profile>
+     </profiles>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			
+			<plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.2.2.Final</version>
+                  <configuration>
+        <hostname>${wildfly-hostname}</hostname>
+        <port>${wildfly-port}</port>
+        <username>${wildfly-username}</username>
+        <password>${wildfly-password}</password>
+    </configuration>
+            </plugin>
+		</plugins>
+	</build>
+
+</project>

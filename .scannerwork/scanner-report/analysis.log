@@ -1,0 +1,180 @@
+Environment variables:
+  - ALSA_CONFIG_PATH=/etc/alsa-pulse.conf
+  - AUDIODRIVER=pulseaudio
+  - COLORTERM=truecolor
+  - CPU=x86_64
+  - CSHEDIT=emacs
+  - DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+  - DESKTOP_SESSION=default
+  - DISPLAY=:1
+  - FROM_HEADER=
+  - GDMSESSION=default
+  - GJS_DEBUG_OUTPUT=stderr
+  - GJS_DEBUG_TOPICS=JS ERROR;JS LOG
+  - GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  - GPG_TTY=/dev/pts/3
+  - GTK_MODULES=canberra-gtk-module
+  - G_BROKEN_FILENAMES=1
+  - G_FILENAME_ENCODING=@locale,UTF-8,ISO-8859-15,CP1252
+  - HISTSIZE=1000
+  - HOME=/home/gontse
+  - HOST=k8s-master
+  - HOSTNAME=k8s-master
+  - HOSTTYPE=x86_64
+  - INPUT_METHOD=ibus
+  - JAVA_BINDIR=/usr/lib64/jvm/java/bin
+  - JAVA_HOME=/home/gontse/Downloads/SOFTWARES/sonar-scanner-4.2.0.1873-linux/jre
+  - JAVA_ROOT=/usr/lib64/jvm/java
+  - JDK_HOME=/usr/lib64/jvm/java
+  - JOURNAL_STREAM=9:38511
+  - JRE_HOME=/usr/lib64/jvm/java/jre
+  - LANG=en_US.UTF-8
+  - LESS=-M -I -R
+  - LESSCLOSE=lessclose.sh %s %s
+  - LESSKEY=/etc/lesskey.bin
+  - LESSOPEN=lessopen.sh %s
+  - LESS_ADVANCED_PREPROCESSOR=no
+  - LOGNAME=gontse
+  - LS_COLORS=no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.xz=00;31:*.avi=01;35:*.bmp=01;35:*.dl=01;35:*.fli=01;35:*.gif=01;35:*.gl=01;35:*.jpg=01;35:*.jpeg=01;35:*.mkv=01;35:*.mng=01;35:*.mov=01;35:*.mp4=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.svg=01;35:*.tga=01;35:*.tif=01;35:*.webm=01;35:*.webp=01;35:*.wmv=01;35:*.xbm=01;35:*.xcf=01;35:*.xpm=01;35:*.aiff=00;32:*.ape=00;32:*.au=00;32:*.flac=00;32:*.m4a=00;32:*.mid=00;32:*.mp3=00;32:*.mpc=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:*.wma=00;32:*.wv=00;32:
+  - LS_OPTIONS=-N --color=tty -T 0
+  - M2_HOME=/opt/maven
+  - MACHTYPE=x86_64-suse-linux
+  - MAIL=/var/spool/mail/gontse
+  - MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man
+  - MINICOM=-c on
+  - MORE=-sl
+  - OLDPWD=/home/gontse
+  - OSTYPE=linux
+  - PAGER=less
+  - PATH=/opt/maven/bin:/home/gontse/bin:/usr/local/bin:/usr/bin:/bin:/opt/bin
+  - PROFILEREAD=true
+  - PWD=/home/gontse/2020Jan14-SMALL-BUILDS/LoginRegistration14JAN-part
+  - PYTHONSTARTUP=/etc/pythonstart
+  - QEMU_AUDIO_DRV=pa
+  - QT_IM_MODULE=ibus
+  - QT_SYSTEM_DIR=/usr/share/desktop-data
+  - SDK_HOME=/usr/lib64/jvm/java
+  - SDL_AUDIODRIVER=pulse
+  - SESSION_MANAGER=local/k8s-master:@/tmp/.ICE-unix/16393,unix/k8s-master:/tmp/.ICE-unix/16393
+  - SHELL=/bin/bash
+  - SHLVL=1
+  - SSH_AGENT_PID=16454
+  - SSH_ASKPASS=/usr/lib/ssh/ssh-askpass
+  - SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+  - TERM=xterm-256color
+  - USER=gontse
+  - USERNAME=gontse
+  - VTE_VERSION=5002
+  - WINDOWID=39845894
+  - WINDOWMANAGER=gnome
+  - WINDOWPATH=2
+  - XAUTHLOCALHOSTNAME=k8s-master
+  - XAUTHORITY=/run/user/1000/gdm/Xauthority
+  - XCURSOR_THEME=DMZ
+  - XDG_CONFIG_DIRS=/etc/xdg
+  - XDG_CURRENT_DESKTOP=GNOME
+  - XDG_DATA_DIRS=/home/gontse/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+  - XDG_MENU_PREFIX=gnome-
+  - XDG_RUNTIME_DIR=/run/user/1000
+  - XDG_SEAT=seat0
+  - XDG_SESSION_DESKTOP=default
+  - XDG_SESSION_ID=1
+  - XDG_SESSION_TYPE=x11
+  - XDG_VTNR=2
+  - XKEYSYMDB=/usr/X11R6/lib/X11/XKeysymDB
+  - XMODIFIERS=@im=ibus
+  - XNLSPATH=/usr/share/X11/nls
+  - XSESSION_IS_UP=yes
+System properties:
+  - awt.toolkit=sun.awt.X11.XToolkit
+  - file.encoding=UTF-8
+  - file.separator=/
+  - java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment
+  - java.awt.headless=true
+  - java.awt.printerjob=sun.print.PSPrinterJob
+  - java.class.path=/home/gontse/Downloads/SOFTWARES/sonar-scanner-4.2.0.1873-linux/lib/sonar-scanner-cli-4.2.0.1873.jar
+  - java.class.version=55.0
+  - java.home=/home/gontse/Downloads/SOFTWARES/sonar-scanner-4.2.0.1873-linux/jre
+  - java.io.tmpdir=/tmp
+  - java.library.path=/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+  - java.runtime.name=OpenJDK Runtime Environment
+  - java.runtime.version=11.0.3+7
+  - java.specification.name=Java Platform API Specification
+  - java.specification.vendor=Oracle Corporation
+  - java.specification.version=11
+  - java.vendor=AdoptOpenJDK
+  - java.vendor.url=https://adoptopenjdk.net/
+  - java.vendor.url.bug=https://github.com/AdoptOpenJDK/openjdk-build/issues
+  - java.vendor.version=AdoptOpenJDK
+  - java.version=11.0.3
+  - java.version.date=2019-04-16
+  - java.vm.compressedOopsMode=32-bit
+  - java.vm.info=mixed mode
+  - java.vm.name=OpenJDK 64-Bit Server VM
+  - java.vm.specification.name=Java Virtual Machine Specification
+  - java.vm.specification.vendor=Oracle Corporation
+  - java.vm.specification.version=11
+  - java.vm.vendor=AdoptOpenJDK
+  - java.vm.version=11.0.3+7
+  - jdk.debug=release
+  - line.separator=
+
+  - os.arch=amd64
+  - os.name=Linux
+  - os.version=4.12.14-23-default
+  - path.separator=:
+  - project.home=/home/gontse/2020Jan14-SMALL-BUILDS/LoginRegistration14JAN-part
+  - scanner.home=/home/gontse/Downloads/SOFTWARES/sonar-scanner-4.2.0.1873-linux
+  - sun.arch.data.model=64
+  - sun.boot.library.path=/home/gontse/Downloads/SOFTWARES/sonar-scanner-4.2.0.1873-linux/jre/lib
+  - sun.cpu.endian=little
+  - sun.cpu.isalist=
+  - sun.desktop=gnome
+  - sun.io.unicode.encoding=UnicodeLittle
+  - sun.java.command=org.sonarsource.scanner.cli.Main -X
+  - sun.java.launcher=SUN_STANDARD
+  - sun.jnu.encoding=UTF-8
+  - sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+  - sun.os.patch.level=unknown
+  - user.country=US
+  - user.dir=/home/gontse/2020Jan14-SMALL-BUILDS/LoginRegistration14JAN-part
+  - user.home=/home/gontse
+  - user.language=en
+  - user.name=gontse
+  - user.timezone=Africa/Johannesburg
+SonarQube plugins:
+  - SonarPython 1.11.0.2473 (python)
+  - SonarCSS 1.0.3.724 (cssfamily)
+  - JaCoCo 1.0.1.143 (jacoco)
+  - SonarGo 1.1.0.1612 (go)
+  - SonarKotlin 1.4.0.155 (kotlin)
+  - Svn 1.9.0.1295 (scmsvn)
+  - SonarJS 5.0.0.6962 (javascript)
+  - SonarRuby 1.4.0.155 (ruby)
+  - SonarScala 1.4.0.155 (sonarscala)
+  - SonarC# 7.10.0.7896 (csharp)
+  - SonarJava 5.10.1.16922 (java)
+  - LDAP 2.2.0.608 (ldap)
+  - SonarHTML 3.1.0.1615 (web)
+  - Git 1.7.0.1491 (scmgit)
+  - SonarFlex 2.4.0.1222 (flex)
+  - SonarXML 2.0.1.2020 (xml)
+  - SonarPHP 2.16.0.4355 (php)
+  - SonarTS 1.9.0.3766 (typescript)
+  - SonarVB 7.10.0.7896 (vbnet)
+Global server settings:
+  - sonar.core.id=BF41A1F2-AXBLi7OHYmGo-p5BZ-A0
+  - sonar.core.startTime=2020-02-16T03:10:10+0200
+Project server settings:
+Project scanner properties:
+  - sonar.host.url=http://localhost:9000
+  - sonar.projectBaseDir=/home/gontse/2020Jan14-SMALL-BUILDS/LoginRegistration14JAN-part
+  - sonar.projectKey=main:project2
+  - sonar.projectName=mainproject2
+  - sonar.projectVersion=1.0
+  - sonar.scanner.app=ScannerCli
+  - sonar.scanner.appVersion=4.2.0.1873
+  - sonar.sourceEncoding=UTF-8
+  - sonar.sources=/home/gontse/2020Jan14-SMALL-BUILDS/LoginRegistration14JAN-part/src/main/java
+  - sonar.verbose=true
+  - sonar.working.directory=/home/gontse/2020Jan14-SMALL-BUILDS/LoginRegistration14JAN-part/.scannerwork
