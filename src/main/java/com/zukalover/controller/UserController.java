@@ -246,7 +246,7 @@ public class UserController {
 		if(user==null)
 		{  
 			mav.addObject(MODE, MODE_LOGIN);
-			mav.addObject("error", "PLEASE LOGIN AGAIN, ERROR ENCOUNTERED");
+			mav.addObject(ERROR, "PLEASE LOGIN AGAIN, ERROR ENCOUNTERED");
 			sessionEntityService.deleteSession(userid);
 			mav.setViewName(MAIN_VIEW);
 		}

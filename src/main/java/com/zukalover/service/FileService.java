@@ -24,6 +24,9 @@ public class FileService {
 	@Autowired
 	FileRepository fileRepository;
 	
+	private String admin="admin";
+	private String alfrescoURL="http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom";
+	
 	public void saveFile(FileEntity file)
 	{
 		fileRepository.save(file);
@@ -58,14 +61,14 @@ public class FileService {
 	public String sendToAlfresco(String filename)
 	{
 		 SessionFactory factory = SessionFactoryImpl.newInstance();
-	        Map<String, String> parameter = new HashMap<String, String>();
+	        Map<String, String> parameter = new HashMap<>();
 	 
 	        // user credentials
-	        parameter.put(SessionParameter.USER, "admin");
-	        parameter.put(SessionParameter.PASSWORD, "admin");
+	        parameter.put(SessionParameter.USER, admin);
+	        parameter.put(SessionParameter.PASSWORD, admin);
 	 
 	        // connection settings
-	        parameter.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom");
+	        parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
 	        parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
 	 
 	        // create session
@@ -73,7 +76,7 @@ public class FileService {
 	        Folder root = session.getRootFolder();
 	 
 	        // properties
-	        Map<String, Object> properties = new HashMap<String, Object>();
+	        Map<String, Object> properties = new HashMap<>();
 	        properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
 	        properties.put(PropertyIds.NAME, filename); // folder name
 	 
@@ -82,7 +85,7 @@ public class FileService {
 	 
 
 	       session.clear();
-	       // String extention = FilenameUtils.getExtension(fileP);
+	       /** String extention = FilenameUtils.getExtension(fileP);
 	        // properties
 	        //Map<String, Object> properties2 = new HashMap<String, Object>();
 	        //properties2.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
@@ -92,10 +95,11 @@ public class FileService {
 	       // ContentStream contentStream = new ContentStreamImpl(filename,BigInteger.valueOf(fileContent.length),"binary/octet-stream", new ByteArrayInputStream(fileContent));
 	        
 	        //Document newDoc = parent.createDocument(properties2, contentStream, VersioningState.MAJOR);
+	       */
 	       
 	       return parent.getId();
 	}
-	/*
+	/**
 	public void sendToAlfresco(String filename)
 	{
 		 SessionFactory factory = SessionFactoryImpl.newInstance();
@@ -140,9 +144,9 @@ public class FileService {
 	
 	//GETTING ALFRESCO ID BY USERID AND FILE ID 27 JAN 2020
 	
-	public String findFileAlfrescoId(Integer USERID, Integer fid)
+	public String findFileAlfrescoId(Integer userid, Integer fileid)
 	{
-		return fileRepository.findFileAlfrescoid(USERID, fid);
+		return fileRepository.findFileAlfrescoid(userid, fileid);
 	}
 	
 	
@@ -184,14 +188,14 @@ public class FileService {
 	public void deleteFromAlfresco(FileEntity fileEntity)
 	{
 		SessionFactory factory = SessionFactoryImpl.newInstance();
-        Map<String, String> parameter = new HashMap<String, String>();
+        Map<String, String> parameter = new HashMap<>();
  
         // user credentials
-        parameter.put(SessionParameter.USER, "admin");
-        parameter.put(SessionParameter.PASSWORD, "admin");
+        parameter.put(SessionParameter.USER, admin);
+        parameter.put(SessionParameter.PASSWORD, admin);
  
         // connection settings
-        parameter.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom");
+        parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
  
         // create session

@@ -44,8 +44,9 @@ public class DocumentService {
 	
 	private Logger logger = LoggerFactory.getLogger(DocumentService.class);
 
-	private static final String admin="admin";
-	private static final String alfrescoURL="http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom";
+	private String admin="admin";
+	private String alfrescoURL="http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom";
+	
 	@Autowired
 	DocumentRepository documentRepository;
 	
@@ -59,18 +60,24 @@ public class DocumentService {
 	{
 		try {
 		SessionFactory factory = SessionFactoryImpl.newInstance();
-        Map<String, String> parameter = new HashMap<String, String>();
+        Map<String, String> parameter = new HashMap<>();
  
-        // user credentials
+        /**
+         *  user credentials
+         */
         parameter.put(SessionParameter.USER, admin);
         parameter.put(SessionParameter.PASSWORD, admin);
  
-        // connection settings
+        /**
+         *  connection settings
+         */
         parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
         
         
-        // create session
+        /**
+         *  create session
+         */
         Session session = factory.getRepositories(parameter).get(0).createSession();
         Folder root = session.getRootFolder();
 		
@@ -105,7 +112,7 @@ public class DocumentService {
 		try {
 		for(DocumentEntity doc: documentRepository.findAll())
 		{
-			if(doc.getId()==documentEntity.getId())
+			if(doc.getId().equals(documentEntity.getId()))
 			{
 				doc.setDocumentname(documentEntity.getDocumentname());
 			}
@@ -140,7 +147,7 @@ public class DocumentService {
 			try {
 				boolean b = newDoc.createNewFile();
 				
-				if(b==true)
+				if(b)
 				{
 					doc.renameTo(newDoc);
 				}
@@ -156,12 +163,17 @@ public class DocumentService {
 	public File readFile()
 	{
 		
-		File file = new File("/home/gontse/UploadedDocs/REPORT-V2.pdf");
-	
-		return file;
+		return new File("/home/gontse/UploadedDocs/REPORT-V2.pdf");
+
 	}
 	
-	//INSERT SEND TO ALFRESCO HERE BASED ON A FILE
+	/**
+	 * INSERT SEND TO ALFRESCO HERE BASED ON A FILE
+	 * @param document
+	 * @param alfrescoid
+	 * @return
+	 * @throws IOException
+	 */
 
 	public String sendToAlfresco(File document,String alfrescoid) throws IOException
 	{
@@ -169,7 +181,9 @@ public class DocumentService {
 		File file2 = document;
 		
         String name = file2.getName();
-        //String fileP = file2.getAbsolutePath();
+        /**
+         * String fileP = file2.getAbsolutePath();
+         */
 		
 		//NEW ADDITIONS 1
 		byte[] fileContent = new byte[(int) file2.length()];
@@ -178,32 +192,40 @@ public class DocumentService {
 		try {
 			istream.read(fileContent);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.info(e.getMessage());
 		}
 		istream.close();
 		
 		//END OF NEW ADDTIONS
 		
 		
-		// default factory implementation
+		/**
+		 *  default factory implementation
+		 */
         SessionFactory factory = SessionFactoryImpl.newInstance();
-        Map<String, String> parameter = new HashMap<String, String>();
+        Map<String, String> parameter = new HashMap<>();
  
-        // user credentials
+        /**
+         *  user credentials
+         */
         parameter.put(SessionParameter.USER, admin);
         parameter.put(SessionParameter.PASSWORD, admin);
  
-        // connection settings
+        /** connection settings
+         * 
+         */
         parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
         
         
-        // create session
+        /** create session
+         * 
+         */
         Session session = factory.getRepositories(parameter).get(0).createSession();
         Folder root = session.getRootFolder();
     
-  /*
+  /**
         // properties
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
@@ -211,14 +233,15 @@ public class DocumentService {
  
         // create the folder
         Folder parent = root.createFolder(properties);
-*/     //NVM  
+    //NVM  
         //String parentid=parent.getId();
-        
+     */   
         Folder fol = (Folder) session.getObject(alfrescoid);
        
-       // String extention = FilenameUtils.getExtension(fileP);
-        // properties
-        Map<String, Object> properties2 = new HashMap<String, Object>();
+       /**String extention = FilenameUtils.getExtension(fileP);
+        * properties
+        */
+        Map<String, Object> properties2 = new HashMap<>();
         properties2.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
         properties2.put(PropertyIds.NAME, name);
         
@@ -241,10 +264,7 @@ public class DocumentService {
 		
 		newName = file.replaceAll(word,"");
 		
-		newName.trim();
-		
-		return newName;
-		
+		return newName.trim();		
 	}
 	
 	
@@ -252,31 +272,41 @@ public class DocumentService {
 	public int convertToImage(File file,String actualName,String filePath) throws IOException
 	{
 		
-		//File nFile = file;
+		/**
+		 * File nFile = file;
+		 */
 		String name = actualName;
 		File newFile = file;
 		
 		
 		
-		//String bar = barcode;
+		/**
+		 * String bar = barcode;
+		 */
 		String imageFilePath=filePath+name;
 		//convert and send to the Queue
 		
-		String extension ="jpg";//The extension to which we convert
-		/*this will be the file name to which we get the pdf
-		//String filename= file.getAbsolutePath();
+		String extension ="jpg";
+		/**The extension to which we convert
+		this will be the file name to which we get the pdf
+		String filename= file.getAbsolutePath();
 		
-		//Create a File object which we will pass the filePAth
-		// File theFile = new File(filename);
+		Create a File object which we will pass the filePAth
+		File theFile = new File(filename);
+		
+		Create a document object
 		*/
-		//Create a document object
 		PDDocument document = null;
 		
 		int count =0;	
-			//with the document object we will load the specific file
+			/**
+			 * with the document object we will load the specific file
+			 */
 			document = PDDocument.load(newFile);
 		
-		//WE will create the PDFRENDERER OBJECT for the DOCUMENT OBJECT
+		/**
+		 * WE will create the PDFRENDERER OBJECT for the DOCUMENT OBJECT
+		 */
 	    PDFRenderer pdfRenderer = new PDFRenderer(document);
 	    for (int page = 0; page < document.getNumberOfPages(); ++page) {
 	    	
@@ -296,12 +326,19 @@ public class DocumentService {
 	    
 			document.close();
 		
-		//sendToQueue(count,imageFilePath,barcode);
+		/**
+		 * sendToQueue(count,imageFilePath,barcode);
+		 */
 		
 		return count;
 	}
 	
-	//NEW ADDITIONS 27 JANUARY 2020 FOR GETTING PDF FROM ALFRESCO
+	/**
+	 * NEW ADDITIONS 27 JANUARY 2020 FOR GETTING PDF FROM ALFRESCO
+	 * @param fid
+	 * @param did
+	 * @return
+	 */
 	public String findAlfrescoIdByDocumentIdAndfileId(Integer fid, Integer did)
 	{
 		return documentRepository.findAlfrescoidByDocumentIdAndfileId(fid, did);
@@ -311,27 +348,33 @@ public class DocumentService {
 	public void findAtAlfresco(String fid,String did) 
 	{
 		SessionFactory factory = SessionFactoryImpl.newInstance();
-        Map<String, String> parameter = new HashMap<String, String>();
+        Map<String, String> parameter = new HashMap<>();
  
-        // user credentials
+        /**
+         *  user credentials
+         */
         parameter.put(SessionParameter.USER, admin);
         parameter.put(SessionParameter.PASSWORD, admin);
  
-        // connection settings
+        /**
+         *  connection settings
+         */
         parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
         
         
-        // create session
+        /**
+         *  create session
+         */
         Session session = factory.getRepositories(parameter).get(0).createSession();
         Folder root = session.getRootFolder();
 		
         Folder fol = (Folder) session.getObject(fid);
         
         
-        Document THEDOC = (Document) session.getObject(did);
+        Document theDocumentFromAlfresco = (Document) session.getObject(did);
         
-        ContentStream cs = THEDOC.getContentStream();
+        ContentStream cs = theDocumentFromAlfresco.getContentStream();
         
         InputStream is = cs.getStream();
 
@@ -342,7 +385,7 @@ public class DocumentService {
 			Files.copy(is,targetFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		
         session.clear();
@@ -369,7 +412,7 @@ public class DocumentService {
 	public String findDocument(String alfrescoId) 
 	{
 		SessionFactory factory = SessionFactoryImpl.newInstance();
-        Map<String, String> parameter = new HashMap<String,String>();
+        Map<String, String> parameter = new HashMap<>();
  
         /**
          *  user credentials
@@ -391,10 +434,10 @@ public class DocumentService {
         Folder root = session.getRootFolder();
 		
         
-        Document THEDOC = (Document) session.getObject(alfrescoId);
-        String name = THEDOC.getName();
+        Document theDocumentFromAlfresco = (Document) session.getObject(alfrescoId);
+        String name = theDocumentFromAlfresco.getName();
         
-        ContentStream cs = THEDOC.getContentStream();
+        ContentStream cs = theDocumentFromAlfresco.getContentStream();
         
         InputStream is = cs.getStream();
 
@@ -403,12 +446,11 @@ public class DocumentService {
         try {
 			Files.copy(is,targetFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		
         session.clear();
-        String v="http://localhost/"+name;
-		return v;
+        return "http://localhost/"+name;
 	}
 	
 }
