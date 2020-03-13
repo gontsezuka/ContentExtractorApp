@@ -49,7 +49,18 @@ private final Logger logger = LoggerFactory.getLogger(ExtractedService.class);
 		} catch (IOException e) 
 		{
 			logger.info(e.getMessage());
-		}  //Add new line - true if for appending
+		}  
+		/**
+		 * Add new line - true if for appending
+		 */
+		
+		finally {
+			try {
+				writer.close();
+			} catch (IOException e) {
+				logger.info(e.getMessage());
+			}
+		}
 		
 	}
 	
@@ -70,6 +81,7 @@ private final Logger logger = LoggerFactory.getLogger(ExtractedService.class);
 			logger.info(e.getMessage());
 		}
 		
+		
 		String cLine;
 		
 		try {
@@ -80,6 +92,12 @@ private final Logger logger = LoggerFactory.getLogger(ExtractedService.class);
 		} catch (IOException e)
 		{
 			logger.info(e.getMessage());
+		}finally {
+			try {
+				bufferedReader.close();
+			} catch (IOException e) {
+				logger.info(e.getMessage());
+			}
 		}
 		return contentBuilder.toString();
 	}

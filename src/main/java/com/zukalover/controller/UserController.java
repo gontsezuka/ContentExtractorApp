@@ -236,7 +236,7 @@ public class UserController {
 		
 		for(User changed: userService.findAllUsers())
 		{
-			if(changed.getId()==userid)
+			if(changed.getId().equals(userid))
 			{
 				changed.setPassword(passwordUpdate);
 				changed.setUsername(usernameUpdate);

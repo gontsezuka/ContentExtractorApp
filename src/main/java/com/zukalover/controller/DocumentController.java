@@ -287,18 +287,20 @@ public class DocumentController {
 		 * GETS THE ACTUAL DOCUMENT FROM ALFRESCO
 		 */
 		String docName = documentService.findDocument(alfrescoid);
-		
-		mav.addObject(MODE, MODE_HOME);
-		mav.addObject(MIDDLE, MIDDLE_PREVIEW);
-		mav.addObject(DOCUMENT, documentEntity);
-		mav.addObject(DOCUMENTNAME, docName);
+		Integer	userIDToReturn=null;
 		try {
-		mav.addObject(USERID, user.getId());
+			userIDToReturn = user.getId();
 		}
 		catch(NullPointerException e)
 		{
 			logger.info(e.getMessage());
 		}
+		mav.addObject(MODE, MODE_HOME);
+		mav.addObject(MIDDLE, MIDDLE_PREVIEW);
+		mav.addObject(DOCUMENT, documentEntity);
+		mav.addObject(DOCUMENTNAME, docName);
+		
+		mav.addObject(USERID, userIDToReturn);
 		mav.addObject(USERNAME, user.getUsername());
 		mav.addObject(EMPTY, EMPTY_FALSE);
 		mav.setViewName(MAIN_VIEW);
