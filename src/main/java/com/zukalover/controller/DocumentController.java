@@ -25,7 +25,7 @@ import com.zukalover.service.UserService;
 
 @Controller
 public class DocumentController {
-	String MODE_LOGIN="MODE_LOGIN";
+	String modeLogin="MODE_LOGIN";
 	String MODE_HOME="MODE_HOME";
 	
 	String MIDDLE_DASHBOARD="DASHBOARD";
@@ -217,7 +217,6 @@ public class DocumentController {
 		SessionEntity user = sessionEntityService.findById(userid);
 		
 		
-		//mav.addObject("nav", "TRUE");
 		mav.addObject(MODE, MODE_HOME);
 		mav.addObject(MIDDLE, MIDDLE_DOCUMENTS);
 		mav.addObject(USERID, user.getId());
@@ -270,7 +269,7 @@ public class DocumentController {
 		if(user==null)
 		{
 			mav.addObject("error", "PLEASE LOGIN");
-			mav.addObject(MODE, MODE_LOGIN);
+			mav.addObject(MODE, modeLogin);
 			mav.setViewName(MAIN_VIEW);
 		}
 		
