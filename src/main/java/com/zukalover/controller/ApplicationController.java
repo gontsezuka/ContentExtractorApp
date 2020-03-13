@@ -16,23 +16,28 @@ import com.zukalover.service.UserService;
 @Controller
 public class ApplicationController {
 
-	String MODE_LOGIN="MODE_LOGIN";
-	String MODE_HOME="MODE_HOME";
-	String MIDDLE_DASHBOARD="DASHBOARD";
-	String EMPTY_TRUE="TRUE";
-	String EMPTY_FALSE="FALSE";
-	String MAIN_VIEW="main";
+	
+	static final String MODE_LOGIN="MODE_LOGIN";
+	static final String MODE_HOME="MODE_HOME";
+	
+	
+	static final String MIDDLE_DASHBOARD="DASHBOARD";
+	
+	
+	static final String EMPTY_TRUE="TRUE";
+	static final String EMPTY_FALSE="FALSE";
+	static final String MAIN_VIEW="main";
 	
 	static final String API_LOGOUT="/logout/{USERID}";
 	static final String API_DASHBOARD="/dashboard/{USERID}";
 	
 	static final String USERID="USERID";
-	String USERNAME="USERNAME";
-	String FILES="FILES";
-	String MODE="mode";
-	String MIDDLE="middle";
-	String EMPTY="EMPTY";
 	
+	static final String USERNAME="USERNAME";
+	static final String FILES="FILES";
+	static final String MODE="mode";
+	static final String MIDDLE="middle";
+	static final String EMPTY="EMPTY";
 	
 	@Autowired
 	FileService fileService;

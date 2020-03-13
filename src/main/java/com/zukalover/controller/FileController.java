@@ -19,18 +19,19 @@ import com.zukalover.service.UserService;
 @Controller
 public class FileController {
 
-	String MODE_LOGIN="MODE_LOGIN";
-	String MODE_HOME="MODE_HOME";
 	
-	String MIDDLE_DASHBOARD="DASHBOARD";
-	String MIDDLE_DOCUMENTS="DOCUMENTS";
-	String MIDDLE_PREVIEW="PREVIEW";
-	String MIDDLE_EXTRACTED="EXTRACTED";
-	String MIDDLE_FILES="FILES";
+	static final String MODE_LOGIN="MODE_LOGIN";
+	static final String MODE_HOME="MODE_HOME";
 	
-	String EMPTY_TRUE="TRUE";
-	String EMPTY_FALSE="FALSE";
-	String MAIN_VIEW="main";
+	static final String MIDDLE_DASHBOARD="DASHBOARD";
+	static final String MIDDLE_DOCUMENTS="DOCUMENTS";
+	static final String MIDDLE_PREVIEW="PREVIEW";
+	static final String MIDDLE_EXTRACTED="EXTRACTED";
+	static final String MIDDLE_FILES="FILES";
+	
+	static final String EMPTY_TRUE="TRUE";
+	static final String EMPTY_FALSE="FALSE";
+	static final String MAIN_VIEW="main";
 	
 	static final String API_CREATEDOCUMENT="/createdocument";
 	static final String API_LISTALLDOCUMENTS="/alldocuments/{USERID}";
@@ -40,14 +41,17 @@ public class FileController {
 	
 	static final String USERID="USERID";
 	static final String FILEID="FILEID";
-	String USERNAME="USERNAME";
-	String DOCUMENTS="DOCUMENTS";
-	String DOCUMENT="DOCUMENT";
-	String DOCUMENTNAME="DOCUMENTNAME";
-	String FILES="FILES";
-	String MODE="mode";
-	String MIDDLE="middle";
-	String EMPTY="EMPTY";
+	
+	
+	static final String USERNAME="USERNAME";
+	static final String DOCUMENTS="DOCUMENTS";
+	static final String DOCUMENT="DOCUMENT";
+	static final String DOCUMENTNAME="DOCUMENTNAME";
+	static final String FILES="FILES";
+	static final String MODE="mode";
+	static final String MIDDLE="middle";
+	static final String EMPTY="EMPTY";
+	
 	private Logger logger = Logger.getLogger(FileController.class);
 
 	@Autowired
