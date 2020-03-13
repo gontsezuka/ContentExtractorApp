@@ -43,18 +43,18 @@ public class ApplicationController {
 	@Autowired
 	SessionEntityService sessionEntityService;
 	
-	//NOT WORKING
+	/**NOT WORKING
 	@GetMapping("/")
 	public String home(HttpServletRequest request) 
 	{
 		request.setAttribute("mode", "MODE_HOME");
 		
-		//request.setAttribute("nav", "TRUE");
+		request.setAttribute("nav", "TRUE");
 		request.setAttribute("EMPTY", "FALSE");
 		request.setAttribute("FILES", fileService.findAll());
 		return "welcomepage";
 	}
-
+	*/
 	
 	//TO LOGOUT
 	@GetMapping(API_LOGOUT)
@@ -65,7 +65,6 @@ public class ApplicationController {
 		sessionEntityService.deleteSession(UserID);
 		
 		mav.addObject(MODE, MODE_LOGIN);
-		//mav.addObject("nav", "FALSE");
 		mav.setViewName(MAIN_VIEW);
 		return mav;		
 	}
@@ -73,10 +72,10 @@ public class ApplicationController {
 	
 	//GO TO DASHBOARD
 	@GetMapping(API_DASHBOARD)
-	public ModelAndView getDashboard(@PathVariable(USERID) Integer UserID)
+	public ModelAndView getDashboard(@PathVariable(USERID) Integer userid)
 	{
 		ModelAndView mav = new ModelAndView();
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		
 		if(user == null )
 		{

@@ -43,7 +43,6 @@ public class DataController {
 	@GetMapping("/thepdf")
 	public String getFile() throws IOException
 	{
-		//ModelAndView mav = new ModelAndView();
 		String content = "";
 		content = new String(Files.readAllBytes(Paths.get("/home/gontse/tesseractOutput/tessOutput.txt")));
 		

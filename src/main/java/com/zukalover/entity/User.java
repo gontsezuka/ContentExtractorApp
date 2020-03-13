@@ -3,6 +3,7 @@ package com.zukalover.entity;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import javax.annotation.CheckForNull;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,6 +42,7 @@ public class User {
 		
 	}
 	
+	@CheckForNull
 	public Integer getId() {
 		return id;
 	}

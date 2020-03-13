@@ -82,23 +82,21 @@ public class DocumentController {
 	MessageSender messageSender;
 	
 	@PostMapping(API_CREATEDOCUMENT)
-	public ModelAndView createDocument(@RequestParam("document") MultipartFile document,@RequestParam("documentname") String documentname,@RequestParam(FILEID) String FileID,@RequestParam(USERID) Integer UserID) 
+	public ModelAndView createDocument(@RequestParam("document") MultipartFile document,@RequestParam("documentname") String documentname,@RequestParam(FILEID) String fileid,@RequestParam(USERID) Integer userid) 
 	{
 		ModelAndView mav = new ModelAndView();
 		try {
-		String outputPath="/home/gontse/tesseractOutput/";
-		String docFilePath="/home/gontse/UploadedDocs/";
-		String imageFilePath="/home/gontse/UploadedImages/";
+		
 		
 		extractedFilename=documentname;
 		
 		//THE FIRTS SHOULD BE GETTING USERNAME
 		
-		SessionEntity user = sessionEntityService.findById(UserID); 
+		SessionEntity user = sessionEntityService.findById(userid); 
 		
 		DocumentEntity documentEntity = documentService.findByDocumentname(documentname);
 		
-		FileEntity fileEntity= fileService.findByFilename(FileID);
+		FileEntity fileEntity= fileService.findByFilename(fileid);
 		
 		
 		if(documentEntity!=null)
@@ -125,61 +123,72 @@ public class DocumentController {
 			mav.setViewName(MAIN_VIEW);
 			return mav;
 		}
-		//FileEntity fileEntity = fileService.findById(FILEID);
-		
-		
-		//FROM OLD CODE
-		
-		//SAVES IT LOCALY
-		
+		/**
+		 * FileEntity fileEntity = fileService.findById(FILEID);
+		 *FROM OLD CODE
+		 *SAVES IT LOCALY
+		*/
 		documentService.saveDocument(document, docFilePath);
 		
 		
 		 
 		
-		//RENAMES DOCUMENT TO THE NAME ENTERED- LOCALLY
+		/**
+		 * RENAMES DOCUMENT TO THE NAME ENTERED- LOCALLY
+		 */
 	
 		File newDoc = documentService.renameDocument(docFilePath, document.getOriginalFilename(), documentname);
 		
 		
 		
-		//CREATE THE DOCUMENT OBJECT
+		/**
+		 * CREATE THE DOCUMENT OBJECT
+		 */
 		DocumentEntity docObject = new DocumentEntity(newDoc.getName(),fileEntity);
 		
 		
-		//SEND THE DOCUMENT TO ALFRESCO
+		/**
+		 * SEND THE DOCUMENT TO ALFRESCO
+		 */
 		String doc_id=documentService.sendToAlfresco(newDoc,fileEntity.getAlfrescoid());
 		
 		
-		//ASSIGN ALRESCO ID TO DOCUMENT
+		/**
+		 * ASSIGN ALRESCO ID TO DOCUMENT
+		 */
 		docObject.setAlfrescoid(doc_id);
 		
 		
-		//SAVE THE DOCUMENT IN THE DATABASE
+		/**
+		 * SAVE THE DOCUMENT IN THE DATABASE
+		 */
 		documentService.saveDocument(docObject);
 		
 		
 		
-		//SEND THE DOCUMENT TO ALFRESCO NO LONGER WOKRING
-		//fileService.sendToAlfresco(newDoc,fileEntity.getFilename());
-		
-		//GET THE FILE NAME WITHOUT .pdf
+		/**SEND THE DOCUMENT TO ALFRESCO NO LONGER WOKRING
+		 *fileService.sendToAlfresco(newDoc,fileEntity.getFilename());
+		 *GET THE FILE NAME WITHOUT .pdf
+		 * 
+		 */
 		String nameNoPDF = documentService.getActualNameNoPDF(docObject.getDocumentname());
 		
-		//CONVERT TO IMAGE
+		/**
+		 * CONVERT TO IMAGE
+		 */
 		int numImages = documentService.convertToImage(newDoc,nameNoPDF,imageFilePath);
 		
 		
-		//SEND TO THE QUEUE
+		/**
+		 * SEND TO THE QUEUE
+		 */
 			
 						
 							
 							messageSender.sendMessage(nameNoPDF,imageFilePath,numImages);
 							
 					
-				//Thread.sleep();
-		
-		//mav.addObject("nav", "TRUE");
+						
 		mav.addObject(MODE, MODE_HOME);
 		mav.addObject(MIDDLE,MIDDLE_DASHBOARD);
 		mav.addObject(USERID, user.getId());
@@ -196,13 +205,16 @@ public class DocumentController {
 		return mav;
 	}
 	
-	//END OF OLD CODE
+	/**
+	 * END OF OLD CODE
+	 * 
+	 */
 	
 	@GetMapping(API_LISTALLDOCUMENTS)
-	public ModelAndView getDocuments(@PathVariable(USERID) Integer UserID)
+	public ModelAndView getDocuments(@PathVariable(USERID) Integer userid)
 	{
 		ModelAndView mav = new ModelAndView();
-		SessionEntity user = sessionEntityService.findById(UserID);
+		SessionEntity user = sessionEntityService.findById(userid);
 		
 		
 		//mav.addObject("nav", "TRUE");
@@ -218,28 +230,38 @@ public class DocumentController {
 	}
 	
 	
-	//27 JAN 2020 ADDITION FOR THE PDF FILE FROM ALFRESCO- HAVE TO WORK ON FRONT END
+	/**
+	 * 27 JAN 2020 ADDITION FOR THE PDF FILE FROM ALFRESCO- HAVE TO WORK ON FRONT END
+	 * @param fid
+	 * @param did
+	 * @param USERID
+	 * @return
+	 * @throws IOException
+	 */
 	@GetMapping("/pdf/{USERID}/{fid}/{did}")
 	public String getDocumentFromAlfresco(@PathVariable("fid")Integer fid, @PathVariable("did")Integer did,@PathVariable("USERID") Integer USERID) throws IOException
 	{
 		String fileAlfrescoid= fileService.findFileAlfrescoId(USERID,fid);
 		String docAlfrescoid= documentService.findAlfrescoIdByDocumentIdAndfileId(fid, did);
 		
-		//THIS ACTUALLY FETCHES THE DOCUMENT AT ALFRESCO
-		//STORE IT LOCALLY /home/gontse/FROMALFRESCO/targetFile.pdf
+		/**THIS ACTUALLY FETCHES THE DOCUMENT AT ALFRESCO
+		*
+		*STORE IT LOCALLY /home/gontse/FROMALFRESCO/targetFile.pdf
+		*/
 		documentService.findAtAlfresco(fileAlfrescoid, docAlfrescoid);
 		return "SUCCESS";
 	}
 	
 	
-	//02 FEBRUARY 2020
-	//TO PREVIEW DOCUMENT FROM ALFESCO/STORE IT IN APACHE AND PREVIEW ON THE USER INTERFACE
-	
+	/**02 FEBRUARY 2020
+	*
+	*TO PREVIEW DOCUMENT FROM ALFESCO/STORE IT IN APACHE AND PREVIEW ON THE USER INTERFACE
+	*/
 	@GetMapping(API_PREVIEWDOCUMENT)
-	public ModelAndView previewDocument(@PathVariable(USERID) Integer UserID, @PathVariable("documentid") Integer documentID) throws IOException
+	public ModelAndView previewDocument(@PathVariable(USERID) Integer userid, @PathVariable("documentid") Integer documentID)
 	{
 		ModelAndView mav = new ModelAndView();
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		DocumentEntity documentEntity = documentService.findDocumentById(documentID);
 	
 		
@@ -252,17 +274,27 @@ public class DocumentController {
 			mav.setViewName(MAIN_VIEW);
 		}
 		
-		//GETS THE DOCUMENT ALFRESCO ID
+		/**
+		 * GETS THE DOCUMENT ALFRESCO ID
+		 */
 		String alfrescoid = documentService.findAlfrescoID(documentID);
 		
-		//GETS THE ACTUAL DOCUMENT FROM ALFRESCO
+		/**
+		 * GETS THE ACTUAL DOCUMENT FROM ALFRESCO
+		 */
 		String docName = documentService.findDocument(alfrescoid);
 		
 		mav.addObject(MODE, MODE_HOME);
 		mav.addObject(MIDDLE, MIDDLE_PREVIEW);
 		mav.addObject(DOCUMENT, documentEntity);
 		mav.addObject(DOCUMENTNAME, docName);
+		try {
 		mav.addObject(USERID, user.getId());
+		}
+		catch(NullPointerException e)
+		{
+			logger.info(e.getMessage());
+		}
 		mav.addObject(USERNAME, user.getUsername());
 		mav.addObject(EMPTY, EMPTY_FALSE);
 		mav.setViewName(MAIN_VIEW);
@@ -273,10 +305,10 @@ public class DocumentController {
 	
 	//TO DELETE A DOCUMENT
 	@GetMapping(API_DELETEDOCUMENT)
-	public ModelAndView deleteDocument(@PathVariable(USERID)Integer UserID, @PathVariable("documentid") Integer documentID)
+	public ModelAndView deleteDocument(@PathVariable(USERID)Integer userid, @PathVariable("documentid") Integer documentID)
 	{
 		ModelAndView mav = new ModelAndView();
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		
 		if(user==null)
 		{
@@ -330,11 +362,11 @@ public class DocumentController {
 	
 	
 	@GetMapping(API_VIEWEXTRACTEDCONTENT)
-	public ModelAndView viewContent(@PathVariable(USERID) Integer UserID, @PathVariable("documentid") Integer documentID )
+	public ModelAndView viewContent(@PathVariable(USERID) Integer userid, @PathVariable("documentid") Integer documentID )
 	{
 		ModelAndView mav = new ModelAndView();
 		
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		DocumentEntity documentEntity = documentService.findDocumentById(documentID);
 		String name = documentEntity.getDocumentname();
 		name = documentService.getActualNameNoPDF(name);

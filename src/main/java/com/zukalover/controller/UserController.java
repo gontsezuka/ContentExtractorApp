@@ -222,14 +222,14 @@ public class UserController {
 	
 	
 	@PostMapping(API_UPDATEUSER)
-	public ModelAndView updateUser(@RequestParam(USERID) Integer UserID,@RequestParam("usernameUpdate") String usernameUpdate,@RequestParam("passwordUpdate") String passwordUpdate )
+	public ModelAndView updateUser(@RequestParam(USERID) Integer userid,@RequestParam("usernameUpdate") String usernameUpdate,@RequestParam("passwordUpdate") String passwordUpdate )
 	{
 		ModelAndView mav = new ModelAndView();
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		
 		for(User changed: userService.findAllUsers())
 		{
-			if(changed.getId()==UserID)
+			if(changed.getId()==userid)
 			{
 				changed.setPassword(passwordUpdate);
 				changed.setUsername(usernameUpdate);
@@ -240,11 +240,11 @@ public class UserController {
 		{  
 			mav.addObject(MODE, MODE_LOGIN);
 			mav.addObject("error", "PLEASE LOGIN AGAIN, ERROR ENCOUNTERED");
-			sessionEntityService.deleteSession(UserID);
+			sessionEntityService.deleteSession(userid);
 			mav.setViewName(MAIN_VIEW);
 		}
 
-		User newUser = userService.findUserById(UserID);
+		User newUser = userService.findUserById(userid);
 		mav.addObject(MODE, MODE_HOME);
 		mav.addObject(MIDDLE, MIDDLE_DASHBOARD);
 		mav.addObject(USERNAME, newUser.getUsername());
@@ -259,10 +259,10 @@ public class UserController {
 	
 	
 	@GetMapping(API_SHOWUPDATEPROFILEPAGE)
-	public ModelAndView showUpdateUser(@PathVariable(USERID) Integer UserID )
+	public ModelAndView showUpdateUser(@PathVariable(USERID) Integer userid )
 	{
 		ModelAndView mav = new ModelAndView();
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		
 		mav.addObject(MODE, MODE_HOME);
 		mav.addObject(MIDDLE, MIDDLE_UPDATE);

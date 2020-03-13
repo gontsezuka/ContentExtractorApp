@@ -57,12 +57,12 @@ public class FileController {
 	UserService userService;
 	
 	@PostMapping("/createfile")
-	public ModelAndView getCreateFile(@ModelAttribute FileEntity file,@RequestParam(USERID) Integer UserID, RedirectAttributes rd)
+	public ModelAndView getCreateFile(@ModelAttribute FileEntity file,@RequestParam(USERID) Integer userid, RedirectAttributes rd)
 	{	
 		ModelAndView mav = new ModelAndView();
 		String message = "";
 		
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		
 		FileEntity theFile = fileService.findByFilename(file.getFilename());
 		
@@ -70,7 +70,6 @@ public class FileController {
 		{
 			message="THE FILE ALREADY EXISTS";
 			mav.addObject(MODE, MODE_HOME);
-			//mav.addObject("nav", "TRUE");
 			mav.addObject(MIDDLE, MIDDLE_DASHBOARD);
 			mav.addObject(USERID, user.getId());
 			mav.addObject(USERNAME, user.getUsername());
@@ -92,38 +91,35 @@ public class FileController {
 			mav.setViewName(MAIN_VIEW);
 			return mav;
 		}
+		/*
+		fileService.saveFile(file);
 		
-		//fileService.saveFile(file);
-		
-		//CHANGE FROM MODEL AND VIEW TO REDIRECT
-		//OLD SEDN TO ALFRESCO
-		//fileService.sendToAlfresco(file.getFilename());
-		//file.setUser(user);
-		//fileService.saveFile(file);
+		CHANGE FROM MODEL AND VIEW TO REDIRECT
+		OLD SEDN TO ALFRESCO
+		fileService.sendToAlfresco(file.getFilename());
+		file.setUser(user);
+		fileService.saveFile(file);
+		*/
 		mav.addObject(MODE, MODE_HOME);
 		mav.addObject(MIDDLE, MIDDLE_DASHBOARD);
 		mav.addObject(USERID, user.getId());
 		mav.addObject(USERNAME, user.getUsername());
-		//mav.addObject("nav", "TRUE");
 		mav.addObject(EMPTY, EMPTY_FALSE);
 		mav.addObject(FILES, fileService.findAll());
-		mav.setViewName(MAIN_VIEW); //REDIRECT TO AN API
+		mav.setViewName(MAIN_VIEW); 
 		
 		return mav;
 		
-		//rd.addAttribute("mode", "MODE_HOME");
-		//mav.setViewName("redirect:/home/"+USERID);
-		//return mav;
 	
 	}
 	
 	@GetMapping("/home/{USERID}")
-	public ModelAndView getHome(@PathVariable(USERID) Integer UserID)
+	public ModelAndView getHome(@PathVariable(USERID) Integer userid)
 	{
 
 		ModelAndView mav = new ModelAndView();
 		
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		
 		
 		mav.addObject(USERID, user.getId());
@@ -141,9 +137,9 @@ public class FileController {
 	
 	
 	@GetMapping("/allfiles/{USERID}")
-	public ModelAndView showAllFiles(@PathVariable(USERID) Integer UserID)
+	public ModelAndView showAllFiles(@PathVariable(USERID) Integer userid)
 	{
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		ModelAndView mav = new ModelAndView();
 		
 		
@@ -159,11 +155,11 @@ public class FileController {
 	
 	
 	@GetMapping("/deletefile/{USERID}/{fileid}")
-	public ModelAndView deleteFile(@PathVariable(USERID) Integer UserID,@PathVariable("fileid") Integer fileid)
+	public ModelAndView deleteFile(@PathVariable(USERID) Integer userid,@PathVariable("fileid") Integer fileid)
 	{
 		ModelAndView mav = new ModelAndView();
 
-		User user = userService.findUserById(UserID);
+		User user = userService.findUserById(userid);
 		FileEntity fileEntity = fileService.findById(fileid);
 		
 		
