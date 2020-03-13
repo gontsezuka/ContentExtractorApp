@@ -39,7 +39,10 @@ public class User {
 
 	public User()
 	{
-		
+		/**
+		 * This is a default constructor
+		 */
+				
 	}
 	
 	@CheckForNull

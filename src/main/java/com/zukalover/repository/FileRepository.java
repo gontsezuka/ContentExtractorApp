@@ -12,9 +12,9 @@ import com.zukalover.entity.FileEntity;
 public interface FileRepository extends JpaRepository<FileEntity, Integer> {
 
 	@Query(value="SELECT f.alfrescoid FROM files f WHERE f.id= ?2 AND f.user_id=?1",nativeQuery = true)
-	public String findFileAlfrescoid(Integer USERID,Integer fid); 
+	public String findFileAlfrescoid(Integer userid,Integer fid); 
 	
 	
 	FileEntity findByFilename(String filename);
-	List<FileEntity> findByUserId( Integer userId);
+	List<FileEntity> findByUserId( Integer userid);
 }

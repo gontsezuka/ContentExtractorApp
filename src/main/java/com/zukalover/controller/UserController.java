@@ -55,6 +55,8 @@ public class UserController {
 	static final String MODE="mode";
 	static final String MIDDLE="middle";
 	static final String EMPTY="EMPTY";
+	static final String ERROR="error";
+
 	
 	private Logger logger = Logger.getLogger(UserController.class);
 	
@@ -82,6 +84,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject(MODE, MODE_REGISTER);
 		mav.setViewName(MAIN_VIEW);
+		logger.info("SHOWING REGISTRATION PAGE");
 		return mav;
 	}
 	
@@ -119,7 +122,7 @@ public class UserController {
 			if(userMan.getUsername().equals(user.getUsername()))
 			{
 				message="USERNAME ALREADY EXISTS";
-				mav.addObject("error", message);
+				mav.addObject(ERROR, message);
 				mav.addObject("user", user);
 				mav.addObject(MODE, MODE_REGISTER);
 				
@@ -179,7 +182,7 @@ public class UserController {
 		if(user==null)
 		{
 			message="NO USER AVAILABLE";
-			mav.addObject("error",message);
+			mav.addObject(ERROR,message);
 			mav.addObject(MODE, MODE_LOGIN);
 			mav.setViewName(MAIN_VIEW);
 			return mav;

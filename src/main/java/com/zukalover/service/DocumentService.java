@@ -44,6 +44,8 @@ public class DocumentService {
 	
 	private Logger logger = LoggerFactory.getLogger(DocumentService.class);
 
+	private static final String admin="admin";
+	private static final String alfrescoURL="http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom";
 	@Autowired
 	DocumentRepository documentRepository;
 	
@@ -60,11 +62,11 @@ public class DocumentService {
         Map<String, String> parameter = new HashMap<String, String>();
  
         // user credentials
-        parameter.put(SessionParameter.USER, "admin");
-        parameter.put(SessionParameter.PASSWORD, "admin");
+        parameter.put(SessionParameter.USER, admin);
+        parameter.put(SessionParameter.PASSWORD, admin);
  
         // connection settings
-        parameter.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom");
+        parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
         
         
@@ -189,11 +191,11 @@ public class DocumentService {
         Map<String, String> parameter = new HashMap<String, String>();
  
         // user credentials
-        parameter.put(SessionParameter.USER, "admin");
-        parameter.put(SessionParameter.PASSWORD, "admin");
+        parameter.put(SessionParameter.USER, admin);
+        parameter.put(SessionParameter.PASSWORD, admin);
  
         // connection settings
-        parameter.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom");
+        parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
         
         
@@ -312,11 +314,11 @@ public class DocumentService {
         Map<String, String> parameter = new HashMap<String, String>();
  
         // user credentials
-        parameter.put(SessionParameter.USER, "admin");
-        parameter.put(SessionParameter.PASSWORD, "admin");
+        parameter.put(SessionParameter.USER, admin);
+        parameter.put(SessionParameter.PASSWORD, admin);
  
         // connection settings
-        parameter.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom");
+        parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
         
         
@@ -346,10 +348,17 @@ public class DocumentService {
         session.clear();
 	}
 	
-	//27 JAN ADDITION TO JUST CALL TO
+	/**
+	 * 27 JAN ADDITION TO JUST CALL TO
+	 * @param did
+	 * @return
+	 */
 	
 	
-	//02 FEBRUARY 2020
+	/*
+	 * 02 FEBRUARY 2020
+	 * AUthor: Gontse Mochoana
+	 */
 	
 	public String findAlfrescoID(Integer did)
 	{
@@ -360,18 +369,24 @@ public class DocumentService {
 	public String findDocument(String alfrescoId) 
 	{
 		SessionFactory factory = SessionFactoryImpl.newInstance();
-        Map<String, String> parameter = new HashMap<String, String>();
+        Map<String, String> parameter = new HashMap<String,String>();
  
-        // user credentials
-        parameter.put(SessionParameter.USER, "admin");
-        parameter.put(SessionParameter.PASSWORD, "admin");
+        /**
+         *  user credentials
+         */
+        parameter.put(SessionParameter.USER, admin);
+        parameter.put(SessionParameter.PASSWORD, admin);
  
-        // connection settings
-        parameter.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom");
+        /**
+         *  connection settings
+         */
+        parameter.put(SessionParameter.ATOMPUB_URL, alfrescoURL);
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
         
         
-        // create session
+        /**
+         *  create session
+         */
         Session session = factory.getRepositories(parameter).get(0).createSession();
         Folder root = session.getRootFolder();
 		

@@ -54,13 +54,15 @@ public class DocumentController {
 	static final String MODE="mode";
 	static final String MIDDLE="middle";
 	static final String EMPTY="EMPTY";
+	static final String ERROR="error";
 	
+	static final String PLEASE_LOGIN_MESSAGE="PLEASE LOGIN";
 	
 	private Logger logger = Logger.getLogger(DocumentController.class);
-	private String extractedFilepath="/srv/www/htdocs/";
-	private String extractedFilename="";
-	private String globalDocumentName="";
-	
+	/**private String extractedFilepath="/srv/www/htdocs/";
+	 
+	 *private String globalDocumentName="";
+	 */
 	String outputPath="/home/gontse/tesseractOutput/";
 	String docFilePath="/home/gontse/UploadedDocs/";
 	String imageFilePath="/home/gontse/UploadedImages/";
@@ -86,13 +88,15 @@ public class DocumentController {
 	public ModelAndView createDocument(@RequestParam("document") MultipartFile document,@RequestParam("documentname") String documentname,@RequestParam(FILEID) String fileid,@RequestParam(USERID) Integer userid) 
 	{
 		ModelAndView mav = new ModelAndView();
+		
 		try {
+			
 		
-		
-		extractedFilename=documentname;
-		
-		//THE FIRTS SHOULD BE GETTING USERNAME
-		
+		/**
+		 *String extractedFilename=documentname;
+		 *THE FIRTS SHOULD BE GETTING USERNAME
+		 */
+			
 		SessionEntity user = sessionEntityService.findById(userid); 
 		
 		DocumentEntity documentEntity = documentService.findByDocumentname(documentname);
@@ -107,7 +111,7 @@ public class DocumentController {
 			mav.addObject(USERID, user.getId());
 			mav.addObject(USERNAME, user.getUsername());
 			mav.addObject(EMPTY, EMPTY_FALSE);
-			mav.addObject("error", "Document already exists");
+			mav.addObject(ERROR, "Document already exists");
 			mav.addObject(FILES, fileService.findAll());
 			mav.setViewName(MAIN_VIEW);
 			return mav;
@@ -151,13 +155,13 @@ public class DocumentController {
 		/**
 		 * SEND THE DOCUMENT TO ALFRESCO
 		 */
-		String doc_id=documentService.sendToAlfresco(newDoc,fileEntity.getAlfrescoid());
+		String documentAlfrescoid=documentService.sendToAlfresco(newDoc,fileEntity.getAlfrescoid());
 		
 		
 		/**
 		 * ASSIGN ALRESCO ID TO DOCUMENT
 		 */
-		docObject.setAlfrescoid(doc_id);
+		docObject.setAlfrescoid(documentAlfrescoid);
 		
 		
 		/**
@@ -239,9 +243,9 @@ public class DocumentController {
 	 * @throws IOException
 	 */
 	@GetMapping("/pdf/{USERID}/{fid}/{did}")
-	public String getDocumentFromAlfresco(@PathVariable("fid")Integer fid, @PathVariable("did")Integer did,@PathVariable("USERID") Integer USERID) throws IOException
+	public String getDocumentFromAlfresco(@PathVariable("fid")Integer fid, @PathVariable("did")Integer did,@PathVariable(USERID) Integer userid)
 	{
-		String fileAlfrescoid= fileService.findFileAlfrescoId(USERID,fid);
+		String fileAlfrescoid= fileService.findFileAlfrescoId(userid,fid);
 		String docAlfrescoid= documentService.findAlfrescoIdByDocumentIdAndfileId(fid, did);
 		
 		/**THIS ACTUALLY FETCHES THE DOCUMENT AT ALFRESCO
@@ -269,7 +273,7 @@ public class DocumentController {
 		
 		if(user==null)
 		{
-			mav.addObject("error", "PLEASE LOGIN");
+			mav.addObject(ERROR, PLEASE_LOGIN_MESSAGE);
 			mav.addObject(MODE, MODE_LOGIN);
 			mav.setViewName(MAIN_VIEW);
 		}
@@ -312,7 +316,7 @@ public class DocumentController {
 		
 		if(user==null)
 		{
-			mav.addObject("error", "PLEASE LOGIN");
+			mav.addObject(ERROR, PLEASE_LOGIN_MESSAGE);
 			mav.addObject(MODE, MODE_LOGIN);
 			mav.setViewName(MAIN_VIEW);
 		}
@@ -331,8 +335,8 @@ public class DocumentController {
 	}
 	
 	
-	/*
-	//TO VIEW EXTRACTED CONTENT. 1 TEXT DOCUMENT
+	/**
+	TO VIEW EXTRACTED CONTENT. 1 TEXT DOCUMENT
 	@GetMapping("viewextractedcontent/{USERID}")
 	public ModelAndView viewContent(@PathVariable("USERID") Integer USERID)
 	{
@@ -374,7 +378,7 @@ public class DocumentController {
 		
 		if(user==null)
 		{
-			mav.addObject("error", "PLEASE LOGIN");
+			mav.addObject(ERROR, PLEASE_LOGIN_MESSAGE);
 			mav.addObject(MODE, MODE_LOGIN);
 			mav.setViewName(MAIN_VIEW);
 		}

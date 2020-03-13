@@ -1,7 +1,5 @@
 package com.zukalover.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,11 +61,11 @@ public class ApplicationController {
 	
 	//TO LOGOUT
 	@GetMapping(API_LOGOUT)
-	public ModelAndView logout(@PathVariable(USERID) Integer UserID)
+	public ModelAndView logout(@PathVariable(USERID) Integer userid)
 	{
 		ModelAndView mav = new ModelAndView();
 		
-		sessionEntityService.deleteSession(UserID);
+		sessionEntityService.deleteSession(userid);
 		
 		mav.addObject(MODE, MODE_LOGIN);
 		mav.setViewName(MAIN_VIEW);

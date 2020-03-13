@@ -36,7 +36,9 @@ public class FileEntity {
 	
 	public FileEntity()
 	{
-		
+		/**
+		 * This is a constructor
+		 */
 	}
 	
 	public User getUser() {

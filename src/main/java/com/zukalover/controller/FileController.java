@@ -51,6 +51,8 @@ public class FileController {
 	static final String MODE="mode";
 	static final String MIDDLE="middle";
 	static final String EMPTY="EMPTY";
+	static final String ERROR="error";
+
 	
 	private Logger logger = Logger.getLogger(FileController.class);
 
@@ -77,7 +79,7 @@ public class FileController {
 			mav.addObject(MIDDLE, MIDDLE_DASHBOARD);
 			mav.addObject(USERID, user.getId());
 			mav.addObject(USERNAME, user.getUsername());
-			mav.addObject("error", message);
+			mav.addObject(ERROR, message);
 			mav.addObject(FILES, fileService.findAll());
 			mav.setViewName(MAIN_VIEW);
 			return mav;
@@ -95,7 +97,7 @@ public class FileController {
 			mav.setViewName(MAIN_VIEW);
 			return mav;
 		}
-		/*
+		/**
 		fileService.saveFile(file);
 		
 		CHANGE FROM MODEL AND VIEW TO REDIRECT
@@ -169,7 +171,7 @@ public class FileController {
 		
 		if(user==null)
 		{
-			mav.addObject("error", "PLEASE LOGIN");
+			mav.addObject(ERROR, "PLEASE LOGIN");
 			mav.addObject(MODE, MODE_LOGIN);
 			mav.setViewName(MAIN_VIEW);
 		}
