@@ -132,9 +132,9 @@ public class DocumentController {
 		 * FileEntity fileEntity = fileService.findById(FILEID);
 		 *FROM OLD CODE
 		 *SAVES IT LOCALY
-		*/
-		documentService.saveDocument(document, docFilePath);
 		
+		documentService.saveDocument(document, docFilePath);
+		*/
 		
 		 
 		
@@ -167,7 +167,7 @@ public class DocumentController {
 		/**
 		 * SAVE THE DOCUMENT IN THE DATABASE
 		 */
-		documentService.saveDocument(docObject);
+		DocumentEntity savedDocument= documentService.saveDocument(docObject);
 		
 		
 		
@@ -176,12 +176,12 @@ public class DocumentController {
 		 *GET THE FILE NAME WITHOUT .pdf
 		 * 
 		 */
-		String nameNoPDF = documentService.getActualNameNoPDF(docObject.getDocumentname());
+		String DocumentNameNoPDF = documentService.getActualNameNoPDF(docObject.getDocumentname());
 		
 		/**
 		 * CONVERT TO IMAGE
 		 */
-		int numImages = documentService.convertToImage(newDoc,nameNoPDF,imageFilePath);
+		int numImages = documentService.convertToImage(newDoc,DocumentNameNoPDF,imageFilePath,savedDocument);
 		
 		
 		/**
@@ -190,7 +190,7 @@ public class DocumentController {
 			
 						
 							
-							messageSender.sendMessage(nameNoPDF,imageFilePath,numImages);
+							messageSender.sendMessage(DocumentNameNoPDF,imageFilePath,numImages,savedDocument);
 							
 					
 						

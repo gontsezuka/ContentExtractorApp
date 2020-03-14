@@ -50,10 +50,11 @@ public class DocumentService {
 	@Autowired
 	DocumentRepository documentRepository;
 	
-	public void saveDocument(DocumentEntity documentEntity)
+	public DocumentEntity saveDocument(DocumentEntity documentEntity)
 	{
 		
-		documentRepository.save(documentEntity);
+		return documentRepository.save(documentEntity);
+	
 	}
 	
 	public void deleteDocument(Integer id)//DELETES FROM BOTH ALFRESCO AND DATABASE
@@ -269,7 +270,7 @@ public class DocumentService {
 	
 	
 	
-	public int convertToImage(File file,String actualName,String filePath) throws IOException
+	public int convertToImage(File file,String actualName,String filePath,DocumentEntity savedDocument) throws IOException
 	{
 		
 		/**
@@ -283,7 +284,7 @@ public class DocumentService {
 		/**
 		 * String bar = barcode;
 		 */
-		String imageFilePath=filePath+name;
+		String imageFilePath=filePath;
 		//convert and send to the Queue
 		
 		String extension ="jpg";
@@ -318,7 +319,7 @@ public class DocumentService {
 				
 	       
 				ImageIOUtil.writeImage(
-				bim, String.format(imageFilePath+"-%d.%s", page + 1, extension), 300);
+				bim, String.format(imageFilePath+savedDocument.getId()+"-%d.%s", page + 1, extension), 300);
 				
 				
 	    }

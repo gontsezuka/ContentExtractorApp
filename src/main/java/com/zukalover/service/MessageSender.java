@@ -1,18 +1,14 @@
 package com.zukalover.service;
 
 import java.io.File;
-import java.util.Collections;
-
-import javax.jms.JMSException;
-import javax.jms.QueueBrowser;
-import javax.jms.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.BrowserCallback;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
+
+import com.zukalover.entity.DocumentEntity;
 
 @Component
 public class MessageSender {
@@ -38,7 +34,7 @@ public class MessageSender {
 		this.jmsTemplate=jmsTemplate;
 	}
 	
-	public void sendMessage(String imageName,String filePath,int counter)
+	public void sendMessage(String imageName,String filePath,int counter,DocumentEntity savedDocument)
 	{	
 		try {
 		String imageNam = imageName;
@@ -52,14 +48,16 @@ public class MessageSender {
 		for(int x=0 ; x<count ; x++)
 		{
 			int s = x +1;
-			File theImage = new File(filePat+imageNam+"-"+s+".jpg");
+			File theImage = new File(filePat+savedDocument.getId()+"-"+s+".jpg");
 			
 			String message = theImage.getAbsolutePath();
 			/**
 			jmsTemplate.convertAndSend("destination", "message");
 			*/
 			this.jmsTemplate.convertAndSend("imageQueue1", message);
-			//Thread.sleep(10000);
+			/**
+			 * Thread.sleep(10000);
+			 */
 			logger.info("image : "+s+"has been sent");
 			
 		}

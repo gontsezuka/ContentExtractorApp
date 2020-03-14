@@ -5,18 +5,23 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MessageReceiver {
 
+	
 	@Autowired
 	ExtractedService extractedService;
 	
 	private final Logger logger = LoggerFactory.getLogger(MessageReceiver.class);
 	
-	//@JmsListener(destination="OutputQueue")
+	/**
+	 * @JmsListener(destination="OutputQueue")
+	 * @param message
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void listener (String message) throws IOException, InterruptedException
 	{
 		logger.info("RETURN MESSAGE RECEIVED ON -> "+ message);
