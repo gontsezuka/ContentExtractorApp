@@ -50,6 +50,10 @@ public class User {
 	
 	@CheckForNull
 	public Integer getId() {
+		if(id==null)
+		{
+			return 0;
+		}
 		return id;
 	}
 	public void setId(Integer id) {

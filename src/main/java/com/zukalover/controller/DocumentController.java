@@ -84,6 +84,10 @@ public class DocumentController {
 	@Autowired
 	MessageSender messageSender;
 	
+	@Autowired
+	User mainUser;
+	
+	
 	@PostMapping(API_CREATEDOCUMENT)
 	public ModelAndView createDocument(@RequestParam("document") MultipartFile document,@RequestParam("documentname") String documentname,@RequestParam(FILEID) String fileid,@RequestParam(USERID) Integer userid) 
 	{
@@ -176,12 +180,12 @@ public class DocumentController {
 		 *GET THE FILE NAME WITHOUT .pdf
 		 * 
 		 */
-		String DocumentNameNoPDF = documentService.getActualNameNoPDF(docObject.getDocumentname());
+		String documentNameNoPDF = documentService.getActualNameNoPDF(docObject.getDocumentname());
 		
 		/**
 		 * CONVERT TO IMAGE
 		 */
-		int numImages = documentService.convertToImage(newDoc,DocumentNameNoPDF,imageFilePath,savedDocument);
+		int numImages = documentService.convertToImage(newDoc,documentNameNoPDF,imageFilePath,savedDocument);
 		
 		
 		/**
@@ -190,7 +194,7 @@ public class DocumentController {
 			
 						
 							
-							messageSender.sendMessage(DocumentNameNoPDF,imageFilePath,numImages,savedDocument);
+							messageSender.sendMessage(documentNameNoPDF,imageFilePath,numImages,savedDocument);
 							
 					
 						
@@ -219,8 +223,10 @@ public class DocumentController {
 	public ModelAndView getDocuments(@PathVariable(USERID) Integer userid)
 	{
 		ModelAndView mav = new ModelAndView();
-		SessionEntity user = sessionEntityService.findById(userid);
-		
+		/**
+		 * SessionEntity user = sessionEntityService.findById(userid);
+		 */
+		User user = userService.findUserById(userid);
 		
 		mav.addObject(MODE, MODE_HOME);
 		mav.addObject(MIDDLE, MIDDLE_DOCUMENTS);
@@ -262,10 +268,11 @@ public class DocumentController {
 	*TO PREVIEW DOCUMENT FROM ALFESCO/STORE IT IN APACHE AND PREVIEW ON THE USER INTERFACE
 	*/
 	@GetMapping(API_PREVIEWDOCUMENT)
-	public ModelAndView previewDocument(@PathVariable(USERID) Integer userid, @PathVariable("documentid") Integer documentID)
+	public ModelAndView previewDocument(@PathVariable(USERID) String userid, @PathVariable("documentid") Integer documentID)
 	{
+		Integer userID= Integer.parseInt(userid);
 		ModelAndView mav = new ModelAndView();
-		User user = userService.findUserById(userid);
+		User user = userService.findUserById(userID);
 		DocumentEntity documentEntity = documentService.findDocumentById(documentID);
 	
 		
@@ -309,7 +316,12 @@ public class DocumentController {
 	
 	
 	
-	//TO DELETE A DOCUMENT
+	/**
+	 * TO DELETE A DOCUMENT
+	 * @param userid
+	 * @param documentID
+	 * @return
+	 */
 	@GetMapping(API_DELETEDOCUMENT)
 	public ModelAndView deleteDocument(@PathVariable(USERID)Integer userid, @PathVariable("documentid") Integer documentID)
 	{
@@ -366,7 +378,12 @@ public class DocumentController {
 	}
 	*/
 	
-	
+	/**
+	 * 
+	 * @param userid
+	 * @param documentID
+	 * @return
+	 */
 	@GetMapping(API_VIEWEXTRACTEDCONTENT)
 	public ModelAndView viewContent(@PathVariable(USERID) Integer userid, @PathVariable("documentid") Integer documentID )
 	{

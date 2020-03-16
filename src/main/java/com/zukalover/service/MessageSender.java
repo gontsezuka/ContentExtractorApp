@@ -15,7 +15,7 @@ public class MessageSender {
 
 	private Logger logger = LoggerFactory.getLogger(MessageSender.class);
 	JmsTemplate jmsTemplate;
-	/*
+	/**
 	
 	public int getMessageCount()
 	{

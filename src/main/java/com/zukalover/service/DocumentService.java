@@ -127,7 +127,15 @@ public class DocumentService {
 	
 	
 	
-	//FROM PREVIOUS PROJECT
+	/**
+	 * Author: Gontse Mochoana
+	 * Date: 2019 December
+	 * Purpose: THe method saves the document locally
+	 * FROM PREVIOUS PROJECT
+	 * @param file
+	 * @param filePath
+	 * @throws IOException
+	 */
 	public void saveDocument(MultipartFile file,String filePath) throws IOException
 	{
 		try {
@@ -141,6 +149,16 @@ public class DocumentService {
 		}
 	}
 	
+	/**
+	 * Author: Gontse Mochoana
+	 * Date: 2019 December
+	 * Purpose: The method changes the uploaded document to the entered document
+	 * @param path
+	 * @param name
+	 * @param newName
+	 * @return
+	 * @throws IOException
+	 */
 	public File renameDocument(String path,String name, String newName) throws IOException
 	{
 			File newDoc = new File(path+newName+".pdf");
@@ -151,6 +169,7 @@ public class DocumentService {
 				if(b)
 				{
 					doc.renameTo(newDoc);
+						
 				}
 			}
 			catch(Exception e)
@@ -275,8 +294,9 @@ public class DocumentService {
 		
 		/**
 		 * File nFile = file;
+		 * String name = actualName;
 		 */
-		String name = actualName;
+		
 		File newFile = file;
 		
 		
